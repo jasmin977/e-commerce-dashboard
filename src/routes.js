@@ -12,13 +12,15 @@ import {
 // Admin Imports
 import MainDashboard from "views/admin/default";
 import NFTMarketplace from "views/admin/marketplace";
-import ProductList from "views/admin/product";
 import Profile from "views/admin/profile";
 import DataTables from "views/admin/dataTables";
 import RTL from "views/admin/rtl";
 
 // Auth Imports
 import SignInCentered from "views/auth/signIn";
+import ProductRoutes from "views/admin/product";
+import ProductList from "views/admin/product/ProductList";
+import Products from "layouts/products";
 
 const routes = [
   {
@@ -45,7 +47,7 @@ const routes = [
   },
   {
     name: "Products",
-    layout: "/admin",
+    layout: "/products",
     path: "/products",
     icon: (
       <Icon
@@ -55,7 +57,7 @@ const routes = [
         color="inherit"
       />
     ),
-    component: ProductList,
+    component: Products,
     secondary: true,
   },
   {

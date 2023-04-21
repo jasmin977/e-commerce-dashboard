@@ -8,7 +8,12 @@ import RTLLayout from "layouts/rtl";
 import { ChakraProvider } from "@chakra-ui/react";
 import theme from "theme/theme";
 import { ThemeEditorProvider } from "@hypertheme-editor/chakra-ui";
-import ProductList from "views/admin/product";
+
+import ProductList from "views/admin/product/ProductList";
+
+import ProductView from "views/admin/product/ViewProduct";
+import AddProduct from "views/admin/product/AddProduct";
+import Products from "layouts/products";
 
 ReactDOM.render(
   <ChakraProvider theme={theme}>
@@ -17,7 +22,9 @@ ReactDOM.render(
         <HashRouter>
           <Switch>
             <Route path={`/auth`} component={AuthLayout} />
-            <Route path={`/product`} component={ProductList} />
+            <Route path={`/products`} component={Products} />
+            <Route path={`/admin/products/add`} component={AddProduct} />
+            <Route path={`/products/:id`} component={ProductView} />
             <Route path={`/admin`} component={AdminLayout} />
             <Route path={`/rtl`} component={RTLLayout} />
             <Redirect from="/" to="/admin" />

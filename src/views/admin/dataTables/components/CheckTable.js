@@ -11,6 +11,7 @@ import {
   useColorModeValue,
   Grid,
   Box,
+  Alert,
 } from "@chakra-ui/react";
 import React, { useMemo } from "react";
 import {
@@ -20,10 +21,18 @@ import {
   useTable,
 } from "react-table";
 
+//custom icons
+import { FaEye } from "react-icons/fa";
+import { MdModeEdit, MdDelete } from "react-icons/md";
+
 // Custom components
 import Card from "components/card/Card";
 import Menu from "components/menu/MainMenu";
 import Filter from "views/admin/product/components/Filter";
+import ProductItem from "./ProductItem";
+import { ActionButtom } from "components/actions/Buttom";
+import { AddButtom } from "components/actions/AddButtom";
+import { Link } from "react-router-dom";
 export default function CheckTable(props) {
   const { columnsData, tableData } = props;
 
@@ -52,6 +61,8 @@ export default function CheckTable(props) {
 
   const textColor = useColorModeValue("secondaryGray.900", "white");
   const borderColor = useColorModeValue("gray.200", "whiteAlpha.100");
+  const tableColor = useColorModeValue("secondaryGray.900", "whiteGray");
+
   return (
     <Card
       direction="column"
@@ -59,20 +70,13 @@ export default function CheckTable(props) {
       px="0px"
       overflowX={{ sm: "scroll", lg: "hidden" }}
     >
-      <Flex px="25px" justify="space-between" mb="20px" align="center">
-        <Text
-          color={textColor}
-          fontSize="22px"
-          fontWeight="700"
-          lineHeight="100%"
-        >
-          Products List
-        </Text>
-        <Menu />
-      </Flex>
-      <Filter />
-
-      <Table {...getTableProps()} variant="simple" color="gray.500" mb="24px">
+      <Table
+        {...getTableProps()}
+        variant="striped"
+        colorScheme="gray"
+        color="gray.500"
+        mb="24px"
+      >
         <Thead>
           {headerGroups.map((headerGroup, index) => (
             <Tr {...headerGroup.getHeaderGroupProps()} key={index}>
@@ -117,18 +121,7 @@ export default function CheckTable(props) {
                       </Flex>
                     );
                   } else if (cell.column.Header === "PRODUCT") {
-                    data = (
-                      <Flex align="center">
-                        <Text
-                          me="10px"
-                          color={textColor}
-                          fontSize="sm"
-                          fontWeight="700"
-                        >
-                          {cell.value}
-                        </Text>
-                      </Flex>
-                    );
+                    data = <ProductItem name={cell.value} />;
                   } else if (cell.column.Header === "CATEGORY") {
                     data = (
                       <Text color={textColor} fontSize="sm" fontWeight="700">
@@ -167,9 +160,11 @@ export default function CheckTable(props) {
                     );
                   } else if (cell.column.Header === "ACTION") {
                     data = (
-                      <Text color={textColor} fontSize="sm" fontWeight="700">
-                        {cell.value}
-                      </Text>
+                      <Flex gap={1}>
+                        <ActionButtom iconName={FaEye} color={"purple"} />
+                        <ActionButtom iconName={MdModeEdit} color={"green"} />
+                        <ActionButtom iconName={MdDelete} color={"red"} />
+                      </Flex>
                     );
                   }
                   return (
