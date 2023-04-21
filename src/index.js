@@ -23,8 +23,6 @@ ReactDOM.render(
           <Switch>
             <Route path={`/auth`} component={AuthLayout} />
             <Route path={`/products`} component={Products} />
-            <Route path={`/admin/products/add`} component={AddProduct} />
-            <Route path={`/products/:id`} component={ProductView} />
             <Route path={`/admin`} component={AdminLayout} />
             <Route path={`/rtl`} component={RTLLayout} />
             <Redirect from="/" to="/admin" />

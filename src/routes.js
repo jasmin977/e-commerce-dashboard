@@ -43,11 +43,11 @@ const routes = [
       />
     ),
     component: NFTMarketplace,
-    secondary: true,
+    // secondary: true,
   },
   {
     name: "Products",
-    layout: "/products",
+    layout: "/admin",
     path: "/products",
     icon: (
       <Icon
@@ -58,7 +58,7 @@ const routes = [
       />
     ),
     component: Products,
-    secondary: true,
+    // secondary: true,
   },
   {
     name: "Orders",

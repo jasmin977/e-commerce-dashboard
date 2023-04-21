@@ -6,7 +6,7 @@ import Navbar from "components/navbar/NavbarAdmin.js";
 import Sidebar from "components/sidebar/Sidebar.js";
 import { SidebarContext } from "contexts/SidebarContext";
 import React, { useState } from "react";
-import { Redirect, Route, Switch } from "react-router-dom";
+import { Redirect, Route, Switch, useRouteMatch } from "react-router-dom";
 import routes from "routes.js";
 import AddProduct from "views/admin/product/AddProduct";
 import ProductList from "views/admin/product/ProductList";
@@ -15,6 +15,7 @@ import ProductView from "views/admin/product/ViewProduct";
 // Custom Chakra theme
 export default function Products(props) {
   const { ...rest } = props;
+  const { path } = useRouteMatch()
   // states and functions
   const [fixed] = useState(false);
   const [toggleSidebar, setToggleSidebar] = useState(false);
@@ -116,7 +117,7 @@ export default function Products(props) {
   const { onOpen } = useDisclosure();
   return (
     <Box>
-      <SidebarContext.Provider
+      {/* <SidebarContext.Provider
         value={{
           toggleSidebar,
           setToggleSidebar,
@@ -151,28 +152,31 @@ export default function Products(props) {
             </Box>
           </Portal>
 
-          {getRoute() ? (
-            <Box
-              mx="auto"
-              p={{ base: "20px", md: "30px" }}
-              pe="20px"
-              minH="100vh"
-              pt="50px"
-            >
-              <Switch>
-                {/*  {getRoutes(routes)} */}
-                <Route path="/products" component={ProductList} />
-                <Route path="/products/add" component={AddProduct} />
-                <Route path="/products/:id" component={ProductView} />
-                <Redirect from="/" to="/admin/default" />
-              </Switch>
-            </Box>
-          ) : null}
+          
           <Box>
             <Footer />
           </Box>
         </Box>
-      </SidebarContext.Provider>
+      </SidebarContext.Provider> */}
+
+      {getRoute() ? (
+        <Box
+          mx="auto"
+          p={{ base: "20px", md: "30px" }}
+          pe="20px"
+          minH="100vh"
+          pt="50px"
+        >
+          <h1>testing route</h1>
+          <Switch>
+            {/*  {getRoutes(routes)} */}
+            <Route exact path={`${path}`} component={ProductList} />
+            <Route exact path={`${path}/add`} component={AddProduct} />
+            <Route exact path={`${path}/:id`} component={ProductView} />
+            <Redirect from="/" to="/admin/default" />
+          </Switch>
+        </Box>
+      ) : null}
     </Box>
   );
 }
