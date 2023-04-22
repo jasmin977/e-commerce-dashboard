@@ -5,7 +5,7 @@ import React from "react";
 import { MdAdd } from "react-icons/md";
 import { NavLink } from "react-router-dom";
 
-export function AddButtom({ action, iconName, color }) {
+export default function AddButtom({ action, iconName, color }) {
   const textColor = useColorModeValue("navy.700", "white");
 
   const bgHover = useColorModeValue(

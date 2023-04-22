@@ -7,13 +7,12 @@ import Sidebar from "components/sidebar/Sidebar.js";
 import { SidebarContext } from "contexts/SidebarContext";
 import React, { useState } from "react";
 import { Redirect, Route, Switch, useRouteMatch } from "react-router-dom";
-import routes from "routes.js";
-import AddProduct from "views/admin/product/AddProduct";
-import ProductList from "views/admin/product/ProductList";
-import ProductView from "views/admin/product/ViewProduct";
+import { ViewOrder } from "views/admin/order";
+
+import { OrderList } from "views/admin/order";
 
 // Custom Chakra theme
-export default function Products(props) {
+export default function Orders(props) {
   const { ...rest } = props;
   const { path } = useRouteMatch();
   // states and functions
@@ -21,7 +20,7 @@ export default function Products(props) {
   const [toggleSidebar, setToggleSidebar] = useState(false);
   // functions for changing the states from components
   const getRoute = () => {
-    return window.location.pathname !== "/product/full-screen-maps";
+    return window.location.pathname !== "/order/full-screen-maps";
   };
   const getActiveRoute = (routes) => {
     let activeRoute = "Default Brand Text";
@@ -94,7 +93,7 @@ export default function Products(props) {
   };
   const getRoutes = (routes) => {
     return routes.map((prop, key) => {
-      if (prop.layout === "/products") {
+      if (prop.layout === "/orders") {
         return (
           <Route
             path={prop.layout + prop.path}
@@ -168,9 +167,8 @@ export default function Products(props) {
           pt="50px"
         >
           <Switch>
-            <Route exact path={`${path}`} component={ProductList} />
-            <Route exact path={`${path}/add`} component={AddProduct} />
-            <Route exact path={`${path}/:id`} component={ProductView} />
+            <Route exact path={`${path}`} component={OrderList} />
+            <Route exact path={`${path}/:id`} component={ViewOrder} />
             <Redirect from="/" to="/admin/default" />
           </Switch>
         </Box>

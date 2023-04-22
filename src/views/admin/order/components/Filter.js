@@ -31,27 +31,31 @@ function Filter() {
       </FormControl>
       <FormControl>
         <Text me="10px" color={textColor} fontSize="sm" fontWeight="700">
-          <FormLabel>CATEGORY BY</FormLabel>
+          <FormLabel>STATUS BY</FormLabel>
         </Text>
-        <Select placeholder="category name" size="lg" variant="filled">
-          <option>BOISSAN</option>
-          <option>CREMERIE</option>
+        <Select size="lg" variant="filled">
+          <option>Pending</option>
+          <option>Shipped</option>
+          <option>Recieved</option>
+          <option>Cancelled</option>
         </Select>
       </FormControl>
       <FormControl>
         <Text me="10px" color={textColor} fontSize="sm" fontWeight="700">
-          <FormLabel>BRAND BY</FormLabel>{" "}
+          <FormLabel>ISSUED BY</FormLabel>{" "}
         </Text>
-        <Select placeholder="All" size="lg" variant="filled">
-          <option>JADIDA</option>
-          <option>MAZARAA</option>
-        </Select>
+        <Input
+          placeholder="brand name"
+          size="lg"
+          type="date"
+          variant="filled"
+        />
       </FormControl>
       <FormControl>
         <Text me="10px" color={textColor} fontSize="sm" fontWeight="700">
           <FormLabel>SEARCH BY</FormLabel>{" "}
         </Text>
-        <Input placeholder="id/ name" size="lg" variant="filled" />
+        <Input placeholder="id/name/email" size="lg" variant="filled" />
       </FormControl>
     </Flex>
   );

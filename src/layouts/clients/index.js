@@ -1,27 +1,21 @@
 // Chakra imports
-import { Portal, Box, useDisclosure } from "@chakra-ui/react";
-import Footer from "components/footer/FooterAdmin.js";
+import { Box, useDisclosure } from "@chakra-ui/react";
+
 // Layout components
-import Navbar from "components/navbar/NavbarAdmin.js";
-import Sidebar from "components/sidebar/Sidebar.js";
-import { SidebarContext } from "contexts/SidebarContext";
-import React, { useState } from "react";
+
+import React from "react";
 import { Redirect, Route, Switch, useRouteMatch } from "react-router-dom";
-import routes from "routes.js";
-import AddProduct from "views/admin/product/AddProduct";
-import ProductList from "views/admin/product/ProductList";
-import ProductView from "views/admin/product/ViewProduct";
+import { ClientProfile, ClientList } from "views/admin/Client";
 
 // Custom Chakra theme
-export default function Products(props) {
+export default function Clients(props) {
   const { ...rest } = props;
   const { path } = useRouteMatch();
   // states and functions
-  const [fixed] = useState(false);
-  const [toggleSidebar, setToggleSidebar] = useState(false);
+
   // functions for changing the states from components
   const getRoute = () => {
-    return window.location.pathname !== "/product/full-screen-maps";
+    return window.location.pathname !== "/order/full-screen-maps";
   };
   const getActiveRoute = (routes) => {
     let activeRoute = "Default Brand Text";
@@ -94,7 +88,7 @@ export default function Products(props) {
   };
   const getRoutes = (routes) => {
     return routes.map((prop, key) => {
-      if (prop.layout === "/products") {
+      if (prop.layout === "/orders") {
         return (
           <Route
             path={prop.layout + prop.path}
@@ -114,51 +108,9 @@ export default function Products(props) {
     });
   };
   document.documentElement.dir = "ltr";
-  const { onOpen } = useDisclosure();
+
   return (
     <Box>
-      {/* <SidebarContext.Provider
-        value={{
-          toggleSidebar,
-          setToggleSidebar,
-        }}
-      >
-        <Sidebar routes={routes} display="none" {...rest} />
-        <Box
-          float="right"
-          minHeight="100vh"
-          height="100%"
-          overflow="auto"
-          position="relative"
-          maxHeight="100%"
-          w={{ base: "100%", xl: "calc( 100% - 290px )" }}
-          maxWidth={{ base: "100%", xl: "calc( 100% - 290px )" }}
-          transition="all 0.33s cubic-bezier(0.685, 0.0473, 0.346, 1)"
-          transitionDuration=".2s, .2s, .35s"
-          transitionProperty="top, bottom, width"
-          transitionTimingFunction="linear, linear, ease"
-        >
-          <Portal>
-            <Box>
-              <Navbar
-                onOpen={onOpen}
-                logoText={"Horizon UI Products PRO"}
-                brandText={getActiveRoute(routes)}
-                secondary={getActiveNavbar(routes)}
-                message={getActiveNavbarText(routes)}
-                fixed={fixed}
-                {...rest}
-              />
-            </Box>
-          </Portal>
-
-          
-          <Box>
-            <Footer />
-          </Box>
-        </Box>
-      </SidebarContext.Provider> */}
-
       {getRoute() ? (
         <Box
           mx="auto"
@@ -168,9 +120,8 @@ export default function Products(props) {
           pt="50px"
         >
           <Switch>
-            <Route exact path={`${path}`} component={ProductList} />
-            <Route exact path={`${path}/add`} component={AddProduct} />
-            <Route exact path={`${path}/:id`} component={ProductView} />
+            <Route exact path={`${path}`} component={ClientList} />
+            <Route exact path={`${path}/:id`} component={ClientProfile} />
             <Redirect from="/" to="/admin/default" />
           </Switch>
         </Box>

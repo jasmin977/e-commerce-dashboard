@@ -1,0 +1,56 @@
+[
+  {
+    "uid": 1,
+    "name": "Med ali",
+    "email": "meddeb@gmail.com",
+    "psw": "$2a$06$4Uoeanolkkpo8gBDNIYt6eid0Qm8cCwsYU5VwaQcBsB6KISR1kwf2",
+    "phone": "51241820",
+    "status": "approved",
+    "created": "15/06/2022 14:02"
+  },
+  {
+    "uid": 2,
+    "name": "Med ali",
+    "email": "meddeb@gmail.com",
+    "psw": "$2a$06$4Uoeanolkkpo8gBDNIYt6eid0Qm8cCwsYU5VwaQcBsB6KISR1kwf2",
+    "phone": "51241820",
+    "status": "blocked",
+    "created": "15/06/2022 14:02"
+  },
+  {
+    "uid": 3,
+    "name": "Med ali",
+    "email": "meddeb@gmail.com",
+    "psw": "$2a$06$4Uoeanolkkpo8gBDNIYt6eid0Qm8cCwsYU5VwaQcBsB6KISR1kwf2",
+    "phone": "51241820",
+    "status": "approved",
+    "created": "15/06/2022 14:02"
+  },
+  {
+    "uid": 4,
+    "name": "Med ali",
+    "email": "meddeb@gmail.com",
+    "psw": "$2a$06$4Uoeanolkkpo8gBDNIYt6eid0Qm8cCwsYU5VwaQcBsB6KISR1kwf2",
+    "phone": "51241820",
+    "status": "pending",
+    "created": "15/06/2022 14:02"
+  },
+  {
+    "uid": 5,
+    "name": "Med ali",
+    "email": "meddeb@gmail.com",
+    "psw": "$2a$06$4Uoeanolkkpo8gBDNIYt6eid0Qm8cCwsYU5VwaQcBsB6KISR1kwf2",
+    "phone": "51241820",
+    "status": "approved",
+    "created": "15/06/2022 14:02"
+  },
+  {
+    "uid": 6,
+    "name": "Med ali",
+    "email": "meddeb@gmail.com",
+    "psw": "$2a$06$4Uoeanolkkpo8gBDNIYt6eid0Qm8cCwsYU5VwaQcBsB6KISR1kwf2",
+    "phone": "51241820",
+    "status": "approved",
+    "created": "15/06/2022 14:02"
+  }
+]

@@ -1,41 +1,23 @@
 import {
   Box,
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
   Grid,
-  Button,
-  Input,
-  Select,
-  Stack,
   Text,
-  Textarea,
   SimpleGrid,
   useColorModeValue,
   Icon,
   Flex,
-  FormLabel,
-  Avatar,
 } from "@chakra-ui/react";
-import {
-  MdAddTask,
-  MdAttachMoney,
-  MdBarChart,
-  MdFileCopy,
-} from "react-icons/md";
-import Upload from "../profile/components/Upload";
+import { MdCheck, MdBlock, MdMoreHoriz, MdLocalShipping } from "react-icons/md";
+
 import MiniStatistics from "components/card/MiniStatistics";
 import IconBox from "components/icons/IconBox";
-import CheckTable from "../dataTables/components/CheckTable";
-import {
-  columnsDataCheck,
-  productscolumnsDataCheck,
-} from "../dataTables/variables/columnsData";
+import { clientscolumnsDataCheck } from "../dataTables/variables/columnsData";
 
-import tableDataCheck from "../dataTables/variables/tableDataCheck.json";
-import { AddButtom } from "components/actions/AddButtom";
+import clientsData from "../dataTables/variables/clientsData.json";
 import Filter from "./components/Filter";
-const ProductList = () => {
+
+import ClientsTable from "./components/ClientsTable";
+const ClientList = () => {
   // Chakra Color Mode
   const textColor = useColorModeValue("secondaryGray.900", "white");
 
@@ -43,7 +25,14 @@ const ProductList = () => {
   const boxBg = useColorModeValue("secondaryGray.300", "whiteAlpha.100");
   return (
     <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>
-      <SimpleGrid columns={{ base: 1, md: 2, lg: 3, "2xl": 6 }} gap="20px">
+      <Grid
+        templateColumns={{
+          base: "repeat(1, 1fr)",
+          md: "repeat(3, 1fr)",
+          xl: "repeat(3, 1fr)",
+        }}
+        gap={6}
+      >
         <MiniStatistics
           startContent={
             <IconBox
@@ -51,12 +40,12 @@ const ProductList = () => {
               h="56px"
               bg={boxBg}
               icon={
-                <Icon w="32px" h="32px" as={MdBarChart} color={brandColor} />
+                <Icon w="32px" h="32px" as={MdMoreHoriz} color={brandColor} />
               }
             />
           }
-          name="Total Products"
-          value="540"
+          name="Pending Users"
+          value="10"
         />
         <MiniStatistics
           startContent={
@@ -64,13 +53,11 @@ const ProductList = () => {
               w="56px"
               h="56px"
               bg={boxBg}
-              icon={
-                <Icon w="32px" h="32px" as={MdAttachMoney} color={brandColor} />
-              }
+              icon={<Icon w="32px" h="32px" as={MdCheck} color={brandColor} />}
             />
           }
-          name="Total Categories"
-          value="350"
+          name="Approved Users"
+          value="32"
         />
         <MiniStatistics
           startContent={
@@ -78,18 +65,21 @@ const ProductList = () => {
               w="56px"
               h="56px"
               bg={boxBg}
-              icon={
-                <Icon w="32px" h="32px" as={MdAttachMoney} color={brandColor} />
-              }
+              icon={<Icon w="32px" h="32px" as={MdBlock} color={brandColor} />}
             />
           }
-          name="Total Brands"
-          value="200"
+          name="Blocked Users"
+          value="3"
         />
-      </SimpleGrid>
+      </Grid>
       <Box pt={{ base: "20px", md: "20px", xl: "20px" }}>
         {/* Main Fields */}
-        <SimpleGrid columns={{ base: 1, md: 1 }} bg="white" gap="20px">
+        <SimpleGrid
+          columns={{ base: 1, md: 1 }}
+          bg={"white"}
+          gap="20px"
+          rounded={"lg"}
+        >
           <Flex px="25px" justify="space-between" my="20px" align="center">
             <Text
               color={textColor}
@@ -97,15 +87,14 @@ const ProductList = () => {
               fontWeight="700"
               lineHeight="100%"
             >
-              Products List
+              Registered Users
             </Text>
-            <AddButtom />
           </Flex>
           <Filter />
 
-          <CheckTable
-            columnsData={productscolumnsDataCheck}
-            tableData={tableDataCheck}
+          <ClientsTable
+            columnsData={clientscolumnsDataCheck}
+            tableData={clientsData}
           />
         </SimpleGrid>
       </Box>
@@ -113,4 +102,4 @@ const ProductList = () => {
   );
 };
 
-export default ProductList;
+export default ClientList;

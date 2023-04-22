@@ -8,10 +8,8 @@ import {
   Th,
   Thead,
   Tr,
+  Avatar,
   useColorModeValue,
-  Grid,
-  Box,
-  Alert,
 } from "@chakra-ui/react";
 import React, { useMemo } from "react";
 import {
@@ -28,10 +26,11 @@ import { MdModeEdit, MdDelete } from "react-icons/md";
 // Custom components
 import Card from "components/card/Card";
 
-import ProductItem from "./ProductItem";
 import { ActionButtom } from "components/actions";
+import { DeleteModal } from "components/actions";
+import ProductItem from "views/admin/dataTables/components/ProductItem";
 
-export default function CheckTable(props) {
+export default function ProductTable(props) {
   const { columnsData, tableData } = props;
 
   const columns = useMemo(() => columnsData, [columnsData]);
@@ -157,11 +156,21 @@ export default function CheckTable(props) {
                       </Text>
                     );
                   } else if (cell.column.Header === "ACTION") {
+                    let id = cell.row.values.uid;
+
                     data = (
                       <Flex gap={1}>
-                        <ActionButtom iconName={FaEye} color={"purple"} />
+                        <ActionButtom
+                          iconName={FaEye}
+                          path={`products/${id}`}
+                          color={"purple"}
+                        />
                         <ActionButtom iconName={MdModeEdit} color={"green"} />
-                        <ActionButtom iconName={MdDelete} color={"red"} />
+                        <DeleteModal
+                          color={"red"}
+                          text="Want to delete this product"
+                          acionText="DELETE"
+                        />{" "}
                       </Flex>
                     );
                   }

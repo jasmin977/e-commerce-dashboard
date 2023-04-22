@@ -74,7 +74,8 @@ export const columnsDataComplex = [
   },
 ];
 
-// my tables
+// my custom header tables
+
 export const productscolumnsDataCheck = [
   {
     Header: "UID",
@@ -108,6 +109,78 @@ export const productscolumnsDataCheck = [
     Header: "SALES",
     accessor: "sales",
   },
+  {
+    Header: "ACTION",
+    accessor: "action",
+  },
+];
+
+export const orderscolumnsDataCheck = [
+  {
+    Header: "UID",
+    accessor: "uid",
+  },
+  {
+    Header: "CLIENT",
+    accessor: "client",
+  },
+  {
+    Header: "PRODUCT",
+    accessor: "product",
+  },
+  {
+    Header: "AMOUNT",
+    accessor: "amount",
+  },
+  {
+    Header: "PAYMENT",
+    accessor: "payment",
+  },
+  {
+    Header: "STATUS",
+    accessor: "status",
+  },
+  {
+    Header: "DATE TIME",
+    accessor: "datetime",
+  },
+
+  {
+    Header: "ACTION",
+    accessor: "action",
+  },
+];
+
+export const clientscolumnsDataCheck = [
+  {
+    Header: "UID",
+    accessor: "uid",
+  },
+  {
+    Header: "NAME",
+    accessor: "name",
+  },
+  {
+    Header: "EMAIL",
+    accessor: "email",
+  },
+  {
+    Header: "PASSWORD",
+    accessor: "psw",
+  },
+  {
+    Header: "PHONE",
+    accessor: "phone",
+  },
+  {
+    Header: "STATUS",
+    accessor: "status",
+  },
+  {
+    Header: "CREATED",
+    accessor: "created",
+  },
+
   {
     Header: "ACTION",
     accessor: "action",
