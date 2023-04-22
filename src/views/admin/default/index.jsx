@@ -1,42 +1,27 @@
 // Chakra imports
 import {
-  Avatar,
   Box,
   Flex,
-  FormLabel,
   Grid,
   GridItem,
   Icon,
-  Select,
   SimpleGrid,
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
 
 // Custom components
-import MiniCalendar from "components/calendar/MiniCalendar";
+
 import MiniStatistics from "components/card/MiniStatistics";
 import IconBox from "components/icons/IconBox";
 import React from "react";
-import {
-  MdAddTask,
-  MdAttachMoney,
-  MdBarChart,
-  MdFileCopy,
-} from "react-icons/md";
-import CheckTable from "views/admin/default/components/CheckTable";
-import ComplexTable from "views/admin/default/components/ComplexTable";
-import DailyTraffic from "views/admin/default/components/DailyTraffic";
+import { MdBarChart } from "react-icons/md";
+
 import PieCard from "views/admin/default/components/PieCard";
-import Tasks from "views/admin/default/components/Tasks";
+
 import TotalSpent from "views/admin/default/components/TotalSpent";
-import WeeklyRevenue from "views/admin/default/components/WeeklyRevenue";
-import {
-  columnsDataCheck,
-  columnsDataComplex,
-} from "views/admin/default/variables/columnsData";
+
 import tableDataCheck from "views/admin/dataTables/variables/tableDataCheck.json";
-import tableDataComplex from "views/admin/default/variables/tableDataComplex.json";
 import { productscolumnsDataCheck } from "../dataTables/variables/columnsData";
 import ProductTable from "../product/components/ProductTable";
 import Filter from "../product/components/Filter";
