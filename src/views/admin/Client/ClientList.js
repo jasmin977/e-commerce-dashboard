@@ -6,6 +6,7 @@ import {
   useColorModeValue,
   Icon,
   Flex,
+  Button,
 } from "@chakra-ui/react";
 import { MdCheck, MdBlock, MdMoreHoriz, MdLocalShipping } from "react-icons/md";
 
@@ -20,7 +21,17 @@ import ClientsTable from "./components/ClientsTable";
 const ClientList = () => {
   // Chakra Color Mode
   const textColor = useColorModeValue("secondaryGray.900", "white");
+  const iconColor = useColorModeValue("brand.500", "white");
 
+  const bgButton = useColorModeValue("secondaryGray.300", "whiteAlpha.100");
+  const bgHover = useColorModeValue(
+    { bg: "secondaryGray.400" },
+    { bg: "whiteAlpha.50" }
+  );
+  const bgFocus = useColorModeValue(
+    { bg: "secondaryGray.300" },
+    { bg: "whiteAlpha.100" }
+  );
   const brandColor = useColorModeValue("brand.500", "white");
   const boxBg = useColorModeValue("secondaryGray.300", "whiteAlpha.100");
   return (
@@ -89,6 +100,22 @@ const ClientList = () => {
             >
               Registered Users
             </Text>
+
+            <Button
+              ms="auto"
+              align="center"
+              justifyContent="center"
+              bg={bgButton}
+              _hover={bgHover}
+              _focus={bgFocus}
+              _active={bgFocus}
+              w="37px"
+              h="37px"
+              lineHeight="100%"
+              borderRadius="10px"
+            >
+              <Icon as={MdMoreHoriz} color={iconColor} w="24px" h="24px" />
+            </Button>
           </Flex>
           <Filter />
 

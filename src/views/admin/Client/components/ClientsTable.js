@@ -29,6 +29,7 @@ import Card from "components/card/Card";
 import { DeleteModal } from "components/actions";
 import { ActionButtom } from "components/actions";
 import { UpdateModel } from "components/actions";
+import { ViewProfileModal } from "components/actions";
 
 export default function ClientsTable(props) {
   const { columnsData, tableData } = props;
@@ -203,7 +204,11 @@ export default function ClientsTable(props) {
                           iconName={FaEye}
                           color={"purple"}
                         />
-
+                        {/* 
+                        <ViewProfileModal
+                          color={"purple"}
+                          clientCell={cell.row.values}
+                        /> */}
                         <UpdateModel
                           color={"green"}
                           clientCell={cell.row.values}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 // Chakra imports
 import {
@@ -22,8 +22,27 @@ import DefaultAuth from "layouts/auth/Default";
 import illustration from "assets/img/auth/auth1.png";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { RiEyeCloseLine } from "react-icons/ri";
+import { authApi } from "api";
+import { useHistory } from "react-router-dom";
 
 function SignIn() {
+  //state
+  const [email, setEmail] = useState("email@example.com");
+  const [password, setPassword] = useState("Password1");
+  let history = useHistory();
+
+  const onLoginPressed = async () => {
+    const [data, err] = await authApi.login(email, password);
+
+    if (err) return console.log(err);
+    if (data.data.success) {
+      history.push("/admin/default");
+      localStorage.setItem("token", data.headers.token);
+    } else {
+      console.log(data.error);
+    }
+  };
+
   // Chakra color mode
   const textColor = useColorModeValue("navy.700", "white");
   const textColorSecondary = "gray.400";
@@ -92,6 +111,8 @@ function SignIn() {
               placeholder="mail@simmmple.com"
               mb="24px"
               fontWeight="500"
+              value={email}
+              onChange={(text) => setEmail(text)}
               size="lg"
             />
             <FormLabel
@@ -112,6 +133,8 @@ function SignIn() {
                 size="lg"
                 type={show ? "text" : "password"}
                 variant="auth"
+                value={password}
+                onChange={(text) => setPassword(text)}
               />
               <InputRightElement display="flex" alignItems="center" mt="4px">
                 <Icon
@@ -157,6 +180,7 @@ function SignIn() {
               w="100%"
               h="50"
               mb="24px"
+              onClick={onLoginPressed}
             >
               Sign In
             </Button>

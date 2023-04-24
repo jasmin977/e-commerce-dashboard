@@ -1,8 +1,5 @@
 import {
   Box,
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
   Grid,
   Button,
   Input,
@@ -14,12 +11,12 @@ import {
   Flex,
   FormControl,
   FormLabel,
-  MenuButton,
   Icon,
 } from "@chakra-ui/react";
-import Upload from "../profile/components/Upload";
+
 import { MdOutlineMoreHoriz } from "react-icons/md";
 import { useState } from "react";
+import { GoBackButton } from "components/actions";
 
 const Menu = () => {
   return (
@@ -50,7 +47,8 @@ const AddProduct = () => {
     // Here you can perform any action with the uploaded image
   };
   return (
-    <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>
+    <Box pt={{ base: "80px", md: "50px", xl: "50px" }}>
+      <GoBackButton />
       {/* Main Fields */}
       <Grid templateColumns="repeat(2, 1fr)" gap={{ base: "20px", xl: "20px" }}>
         <Stack direction="row" spacing="4">
@@ -329,9 +327,11 @@ const AddProduct = () => {
 
       <Flex w="100%">
         <Button
-          my="10px"
-          w="100%"
-          variant="brand"
+          w={"100%"}
+          variant="darkBrand"
+          color="white"
+          fontSize="lg"
+          my="20px"
           fontWeight="500"
           borderRadius="10px"
         >

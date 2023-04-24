@@ -18,6 +18,7 @@ import {
   Stack,
   Button,
 } from "@chakra-ui/react";
+import { GoBackButton } from "components/actions";
 
 import {
   BsFillCartFill,
@@ -34,14 +35,21 @@ function OrderView() {
   const bgFocus = useColorModeValue({ bg: "secondaryGray.800" });
   return (
     <Box
-      mt="80px"
+      flex="1"
+      direction={"column"}
       pt={{ base: "30px", md: "20px" }}
-      p={10}
-      bg={"white"}
-      borderRadius="lg"
-      mb="4"
+      mt="30px"
     >
-      <Flex flex="1" direction={"column"} gap={10}>
+      <GoBackButton />
+      <Flex
+        flex="1"
+        direction={"column"}
+        p={10}
+        borderRadius="lg"
+        mb="4"
+        gap={10}
+        bg={"white"}
+      >
         <Flex flex="1" direction={"column"} align={"center"} gap={3}>
           <Icon as={BsFillCartFill} color={brandColor} w={10} h={10} />
           <Text fontSize="3xl" fontWeight="bold">
