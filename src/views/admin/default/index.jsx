@@ -46,12 +46,15 @@ export default function UserReports() {
   const [isLoading, setIsLoading] = useState(false);
   useEffect(async () => {
     setIsLoading(true);
-    const [{ data, status }, err] = await clientApi.getUsers();
+    const [{ data }, err] = await clientApi.getUsers();
     const [{ data: products }, errc] = await productApi.getProducts();
-    if (status == 200) {
+
+    console.log(products);
+    if (data.success == 200) {
       setUsers(data.users.slice(0, 5));
       setproducts(products.slice(0, 5));
     }
+
     setIsLoading(false);
   }, []);
 

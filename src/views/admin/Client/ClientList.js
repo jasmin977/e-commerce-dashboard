@@ -29,8 +29,11 @@ const ClientList = () => {
   useEffect(async () => {
     setIsLoading(true);
     const [{ data }, err] = await clientApi.getUsers();
-    setSearchResults(data.users);
-    setUsers(data.users);
+    if (data.success == 200) {
+      setSearchResults(data.users);
+      setUsers(data.users);
+    }
+
     setIsLoading(false);
   }, []);
 

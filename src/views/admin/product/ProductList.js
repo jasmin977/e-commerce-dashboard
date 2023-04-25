@@ -29,6 +29,7 @@ const ProductList = () => {
   useEffect(async () => {
     setIsLoading(true);
     const [{ data }, err] = await productApi.getProducts();
+
     const [{ data: cats }, errc] = await productApi.getCategories();
     setCategories(cats);
     setSearchResults(data);
