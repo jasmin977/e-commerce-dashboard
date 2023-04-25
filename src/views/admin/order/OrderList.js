@@ -7,6 +7,7 @@ import {
   Icon,
   Flex,
   Button,
+  Spinner,
 } from "@chakra-ui/react";
 import {
   MdAddTask,
@@ -15,7 +16,7 @@ import {
   MdLocalShipping,
   MdMoreHoriz,
 } from "react-icons/md";
-import { IoIosMore, IoIosRemoveCircleOutline } from "react-icons/io";
+import { IoIosMore } from "react-icons/io";
 import { BsBagCheckFill } from "react-icons/bs";
 import { TiCancel } from "react-icons/ti";
 
@@ -33,15 +34,6 @@ const OrderList = () => {
   const textColor = useColorModeValue("secondaryGray.900", "white");
   const brandColor = useColorModeValue("brand.500", "white");
   const boxBg = useColorModeValue("secondaryGray.300", "whiteAlpha.100");
-  const [orders, setOrders] = useState();
-
-  useEffect(async () => {
-    const [data, err] = await orderApi.getOrders();
-
-    console.log(data);
-    setOrders(orders);
-  }, []);
-
   const iconColor = useColorModeValue("brand.500", "white");
 
   const bgButton = useColorModeValue("secondaryGray.300", "whiteAlpha.100");
@@ -54,6 +46,73 @@ const OrderList = () => {
     { bg: "whiteAlpha.100" }
   );
 
+  //api callss
+  const [orders, setOrders] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [searchResults, setSearchResults] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchStatusTerm, setSearchStatusTerm] = useState("");
+
+  useEffect(async () => {
+    setIsLoading(true);
+
+    const [res, err] = await orderApi.getOrders();
+    if (err) return console.log(err);
+    const { data, status } = res;
+    if (status == 200) {
+      setOrders(data.orders);
+      console.log(orders);
+      setSearchResults(data.orders);
+    }
+    setIsLoading(false);
+  }, []);
+
+  useEffect(() => {
+    if (searchTerm === "") {
+      setSearchResults(orders);
+    } else {
+      const results = orders.filter(
+        (item) =>
+          item.id.toString().includes(searchTerm) ||
+          item.userName.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setSearchResults(results);
+    }
+  }, [searchTerm]);
+
+  useEffect(() => {
+    if (setSearchStatusTerm === "") {
+      setSearchResults(orders);
+    } else {
+      const results = orders.filter((item) =>
+        item.status.toLowerCase().includes(searchStatusTerm.toLowerCase())
+      );
+      setSearchResults(results);
+    }
+  }, [searchStatusTerm]);
+
+  const handleStatusSearch = (event) => {
+    setSearchStatusTerm(event.target.value);
+  };
+
+  const handleChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  //spinner
+  if (isLoading) {
+    return (
+      <Flex height={"xl"} align={"center"} justify={"center"}>
+        <Spinner
+          thickness="4px"
+          speed="0.65s"
+          emptyColor="gray.200"
+          color="brand.500"
+          size="xl"
+        />
+      </Flex>
+    );
+  }
   return (
     <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>
       <Grid
@@ -162,11 +221,15 @@ const OrderList = () => {
               <Icon as={MdMoreHoriz} color={iconColor} w="24px" h="24px" />
             </Button>
           </Flex>
-          <Filter />
+          <Filter
+            handleStatusSearch={handleStatusSearch}
+            handleChange={handleChange}
+            searchTerm={searchTerm}
+          />
 
           <OderTable
             columnsData={orderscolumnsDataCheck}
-            tableData={odersData}
+            tableData={searchResults}
           />
         </SimpleGrid>
       </Box>

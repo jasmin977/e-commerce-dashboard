@@ -17,14 +17,17 @@ import {
   useColorModeValue,
   Stack,
   Button,
+  Spinner,
 } from "@chakra-ui/react";
 import { GoBackButton } from "components/actions";
+import { useState } from "react";
 
 import {
   BsFillCartFill,
   BsFileArrowDownFill,
   BsFillPrinterFill,
 } from "react-icons/bs";
+import { useLocation } from "react-router-dom";
 
 function OrderView() {
   // Chakra Color Mode
@@ -33,6 +36,27 @@ function OrderView() {
   const brandColor = useColorModeValue("brand.500", "white");
   const boxBg = useColorModeValue("secondaryGray.300", "whiteAlpha.100");
   const bgFocus = useColorModeValue({ bg: "secondaryGray.800" });
+
+  //getting data from path
+  const location = useLocation();
+  const orderData = location.state;
+  let subTotal = 0;
+
+  //spinner
+  if (!orderData) {
+    return (
+      <Flex height={"xl"} align={"center"} justify={"center"}>
+        <Spinner
+          thickness="4px"
+          speed="0.65s"
+          emptyColor="gray.200"
+          color="brand.500"
+          size="xl"
+        />
+      </Flex>
+    );
+  }
+
   return (
     <Box
       flex="1"
@@ -53,7 +77,7 @@ function OrderView() {
         <Flex flex="1" direction={"column"} align={"center"} gap={3}>
           <Icon as={BsFillCartFill} color={brandColor} w={10} h={10} />
           <Text fontSize="3xl" fontWeight="bold">
-            Order #8456
+            Order #{orderData.id}
           </Text>
         </Flex>
 
@@ -122,30 +146,19 @@ function OrderView() {
               </Tr>
             </Thead>
             <Tbody>
-              <Tr>
-                <Td>#5768</Td>
-                <Td>modern summer sho</Td>
-                <Td>25 DT</Td>
-                <Td>20 %</Td>
-                <Td>03</Td>
-                <Td>10 DT</Td>
-              </Tr>
-              <Tr>
-                <Td>#5768</Td>
-                <Td>modern summer sho</Td>
-                <Td>25 DT</Td>
-                <Td>20 %</Td>
-                <Td>03</Td>
-                <Td>10 DT</Td>
-              </Tr>
-              <Tr>
-                <Td>#5768</Td>
-                <Td>modern summer sho</Td>
-                <Td>25 DT</Td>
-                <Td>20 %</Td>
-                <Td>03</Td>
-                <Td>10 DT</Td>
-              </Tr>
+              {orderData.items.map((item, idx) => {
+                subTotal += item.price * item.quantity;
+                return (
+                  <Tr key={`product_${item.id}_order_${idx}`}>
+                    <Td>#{idx + 1}</Td>
+                    <Td>{item.name}</Td>
+                    <Td>{item.price} DT</Td>
+                    <Td>20 %</Td>
+                    <Td>{item.quantity}</Td>
+                    <Td>{item.price * item.quantity} DT</Td>
+                  </Tr>
+                );
+              })}
             </Tbody>
           </Table>
         </Flex>
@@ -162,7 +175,7 @@ function OrderView() {
                 :
               </Text>
               <Text fontSize="lg" fontWeight="bold">
-                200.000 DT
+                {subTotal} DT
               </Text>
             </Grid>
             <Grid templateColumns="repeat(3, 1fr)" gap={2}>
@@ -173,7 +186,7 @@ function OrderView() {
                 :
               </Text>
               <Text fontSize="lg" fontWeight="bold">
-                50 DT
+                5 DT
               </Text>
             </Grid>
             <Grid templateColumns="repeat(3, 1fr)" gap={2}>
@@ -196,7 +209,7 @@ function OrderView() {
                 :
               </Text>
               <Text fontSize="larger" fontWeight="bold">
-                2.500.00 DT
+                {subTotal - 12} DT
               </Text>
             </Grid>
           </Flex>

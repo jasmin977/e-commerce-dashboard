@@ -4,11 +4,9 @@ import {
   Flex,
   Grid,
   GridItem,
-  Heading,
   Icon,
   Image,
-  List,
-  ListItem,
+  Spinner,
   Stack,
   Text,
 } from "@chakra-ui/react";
@@ -16,8 +14,27 @@ import { FaCheckCircle, FaShoppingCart, FaStore, FaTag } from "react-icons/fa";
 import { AiFillSetting } from "react-icons/ai";
 import { MdCategory } from "react-icons/md";
 import { GoBackButton } from "components/actions";
+import { useLocation } from "react-router-dom";
 
+import image from "assets/img/nfts/Nft4.png";
 function ProductView() {
+  const location = useLocation();
+  const productData = location.state;
+
+  //spinner
+  if (!productData) {
+    return (
+      <Flex height={"xl"} align={"center"} justify={"center"}>
+        <Spinner
+          thickness="4px"
+          speed="0.65s"
+          emptyColor="gray.200"
+          color="brand.500"
+          size="xl"
+        />
+      </Flex>
+    );
+  }
   return (
     <Box
       flex="1"
@@ -55,9 +72,7 @@ function ProductView() {
               <Image
                 borderRadius="8px"
                 boxSize="400px"
-                src={
-                  "https://ayshek.com/wp-content/uploads/2020/05/ca9d45_a334208c125e413bb58cc9217baf11damv2.png"
-                }
+                src={image}
                 alt="product image"
               />
             </Box>
@@ -71,7 +86,7 @@ function ProductView() {
             </Stack>
             <Box>
               <Text fontSize="3xl" fontWeight="medium">
-                Product Name
+                {productData.name}
               </Text>
               <Flex direction={"column"} gap={5} p={5}>
                 <Grid templateColumns="repeat(3, 1fr)">
@@ -85,7 +100,7 @@ function ProductView() {
                   <Text as="span" mr={2}>
                     :
                   </Text>
-                  <Text as="p">man's</Text>
+                  <Text as="p"></Text>
                 </Grid>
                 <Grid templateColumns="repeat(3, 1fr)">
                   <Flex align={"center"}>
@@ -98,7 +113,7 @@ function ProductView() {
                   <Text as="span" mr={2}>
                     :
                   </Text>
-                  <Text as="p">man's</Text>
+                  <Text as="p">{productData.category.name}</Text>
                 </Grid>
 
                 <Grid templateColumns="repeat(3, 1fr)">
@@ -112,7 +127,7 @@ function ProductView() {
                   <Text as="span" mr={2}>
                     :
                   </Text>
-                  <Text as="p">man's</Text>
+                  <Text as="p">...........</Text>
                 </Grid>
                 <Grid templateColumns="repeat(3, 1fr)">
                   <Flex align={"center"}>
@@ -125,7 +140,7 @@ function ProductView() {
                   <Text as="span" mr={2}>
                     :
                   </Text>
-                  <Text as="p">man's</Text>
+                  <Text as="p">{productData.price}</Text>
                 </Grid>
                 <Grid templateColumns="repeat(3, 1fr)">
                   <Flex align={"center"}>
@@ -138,7 +153,7 @@ function ProductView() {
                   <Text as="span" mr={2}>
                     :
                   </Text>
-                  <Text as="p">man's</Text>
+                  <Text as="p">...........</Text>
                 </Grid>
                 <Grid templateColumns="repeat(3, 1fr)">
                   <Flex align={"center"}>
@@ -151,7 +166,7 @@ function ProductView() {
                   <Text as="span" mr={2}>
                     :
                   </Text>
-                  <Text as="p">man's</Text>
+                  <Text as="p">..........</Text>
                 </Grid>
               </Flex>
             </Box>

@@ -5,7 +5,18 @@ import React from "react";
 import GeneralInformation from "./General";
 
 export default function Banner(props) {
-  const { banner, avatar, name, job, orders, reviews, products } = props;
+  const {
+    banner,
+    avatar,
+    name,
+    email,
+    number,
+    address,
+    gender,
+    orders,
+    reviews,
+    products,
+  } = props;
   // Chakra Color Mode
   const textColorPrimary = useColorModeValue("secondaryGray.900", "white");
   const textColorSecondary = "gray.400";
@@ -35,7 +46,7 @@ export default function Banner(props) {
         {name}
       </Text>
       <Text color={textColorSecondary} fontSize="sm">
-        {job}
+        {email}
       </Text>
       <Flex w="max-content" mx="auto" mt="26px">
         <Flex mx="auto" me="60px" align="center" direction="column">
@@ -67,6 +78,9 @@ export default function Banner(props) {
         gridArea={{ base: "2 / 1 / 3 / 2", lg: "1 / 2 / 2 / 3" }}
         minH="365px"
         pe="20px"
+        number={number}
+        address={address}
+        gender={gender}
       />
     </Card>
   );

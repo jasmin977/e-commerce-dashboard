@@ -11,7 +11,12 @@ import {
 import React from "react";
 import { inputStyles } from "theme/components/input";
 
-function Filter() {
+function Filter({
+  searchTerm,
+  handleChange,
+  categories,
+  handleCategorySearch,
+}) {
   const textColor = useColorModeValue("secondaryGray.900", "white");
   const borderColor = useColorModeValue("gray.200", "whiteAlpha.100");
   return (
@@ -33,9 +38,18 @@ function Filter() {
         <Text me="10px" color={textColor} fontSize="sm" fontWeight="700">
           <FormLabel>CATEGORY BY</FormLabel>
         </Text>
-        <Select placeholder="category name" size="lg" variant="filled">
-          <option>BOISSAN</option>
-          <option>CREMERIE</option>
+        <Select
+          // placeholder="All"
+          size="lg"
+          variant="filled"
+          onChange={handleCategorySearch}
+        >
+          <option value={""}>All</option>
+          {categories.map((item, idx) => (
+            <option value={`${item.name}`} key={`category_${item.name}`}>
+              {item.name}
+            </option>
+          ))}
         </Select>
       </FormControl>
       <FormControl>
@@ -43,15 +57,20 @@ function Filter() {
           <FormLabel>BRAND BY</FormLabel>{" "}
         </Text>
         <Select placeholder="All" size="lg" variant="filled">
-          <option>JADIDA</option>
-          <option>MAZARAA</option>
+          <option>brand name</option>
         </Select>
       </FormControl>
       <FormControl>
         <Text me="10px" color={textColor} fontSize="sm" fontWeight="700">
           <FormLabel>SEARCH BY</FormLabel>{" "}
         </Text>
-        <Input placeholder="id/ name" size="lg" variant="filled" />
+        <Input
+          value={searchTerm}
+          onChange={handleChange}
+          placeholder="id/ name /category"
+          size="lg"
+          variant="filled"
+        />
       </FormControl>
     </Flex>
   );

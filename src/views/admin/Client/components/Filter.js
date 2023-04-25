@@ -11,7 +11,7 @@ import {
 import React from "react";
 import { inputStyles } from "theme/components/input";
 
-function Filter() {
+function Filter({ searchTerm, handleChange }) {
   const textColor = useColorModeValue("secondaryGray.900", "white");
   const borderColor = useColorModeValue("gray.200", "whiteAlpha.100");
   return (
@@ -45,6 +45,8 @@ function Filter() {
           <FormLabel>SEARCH BY</FormLabel>
         </Text>
         <Input
+          value={searchTerm}
+          onChange={handleChange}
           placeholder="id/ name/ email/ phone"
           size="lg"
           variant="filled"

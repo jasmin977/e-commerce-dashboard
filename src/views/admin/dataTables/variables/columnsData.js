@@ -79,20 +79,20 @@ export const columnsDataComplex = [
 export const productscolumnsDataCheck = [
   {
     Header: "UID",
-    accessor: "uid",
+    accessor: "id",
   },
   {
     Header: "PRODUCT",
-    accessor: "product",
+    accessor: "name",
   },
   {
     Header: "CATEGORY",
     accessor: "category",
   },
-  {
+  /* {
     Header: "BRAND",
     accessor: "brand",
-  },
+  }, */
   {
     Header: "PRICE",
     accessor: "price",
@@ -101,14 +101,15 @@ export const productscolumnsDataCheck = [
     Header: "STOCK",
     accessor: "stock",
   },
+  /*
   {
     Header: "ORDER",
     accessor: "order",
   },
-  {
+   {
     Header: "SALES",
     accessor: "sales",
-  },
+  }, */
   {
     Header: "ACTION",
     accessor: "action",
@@ -118,31 +119,28 @@ export const productscolumnsDataCheck = [
 export const orderscolumnsDataCheck = [
   {
     Header: "UID",
-    accessor: "uid",
+    accessor: "id",
   },
   {
     Header: "CLIENT",
-    accessor: "client",
+    accessor: "userName",
   },
   {
     Header: "PRODUCT",
-    accessor: "product",
+    accessor: "items",
   },
   {
     Header: "AMOUNT",
-    accessor: "amount",
+    accessor: "total",
   },
-  {
-    Header: "PAYMENT",
-    accessor: "payment",
-  },
+
   {
     Header: "STATUS",
     accessor: "status",
   },
   {
     Header: "DATE TIME",
-    accessor: "datetime",
+    accessor: "date",
   },
 
   {
@@ -154,7 +152,7 @@ export const orderscolumnsDataCheck = [
 export const clientscolumnsDataCheck = [
   {
     Header: "UID",
-    accessor: "uid",
+    accessor: "id",
   },
   {
     Header: "NAME",
@@ -166,20 +164,28 @@ export const clientscolumnsDataCheck = [
   },
   {
     Header: "PASSWORD",
-    accessor: "psw",
+    accessor: "password",
+  },
+  {
+    Header: "GENDER",
+    accessor: "gender",
   },
   {
     Header: "PHONE",
-    accessor: "phone",
+    accessor: "phoneNumber",
   },
+  {
+    Header: "ADDRESS",
+    accessor: "address",
+  } /*
   {
     Header: "STATUS",
     accessor: "status",
   },
-  {
+   {
     Header: "CREATED",
     accessor: "created",
-  },
+  }, */,
 
   {
     Header: "ACTION",

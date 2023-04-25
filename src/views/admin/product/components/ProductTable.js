@@ -122,13 +122,7 @@ export default function ProductTable(props) {
                   } else if (cell.column.Header === "CATEGORY") {
                     data = (
                       <Text color={textColor} fontSize="sm" fontWeight="700">
-                        {cell.value}
-                      </Text>
-                    );
-                  } else if (cell.column.Header === "BRAND") {
-                    data = (
-                      <Text color={textColor} fontSize="sm" fontWeight="700">
-                        {cell.value}
+                        {cell.value.name}
                       </Text>
                     );
                   } else if (cell.column.Header === "PRICE") {
@@ -143,24 +137,14 @@ export default function ProductTable(props) {
                         {cell.value}
                       </Text>
                     );
-                  } else if (cell.column.Header === "ORDER") {
-                    data = (
-                      <Text color={textColor} fontSize="sm" fontWeight="700">
-                        {cell.value}
-                      </Text>
-                    );
-                  } else if (cell.column.Header === "SALES") {
-                    data = (
-                      <Text color={textColor} fontSize="sm" fontWeight="700">
-                        {cell.value}
-                      </Text>
-                    );
                   } else if (cell.column.Header === "ACTION") {
-                    let id = cell.row.values.uid;
+                    let id = cell.row.values.id;
+                    let product = cell.row.values;
 
                     data = (
                       <Flex gap={1}>
                         <ActionButtom
+                          dataToSend={product}
                           iconName={FaEye}
                           path={`products/${id}`}
                           color={"purple"}

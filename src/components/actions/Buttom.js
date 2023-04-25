@@ -4,7 +4,13 @@ import { Icon, Flex, Text, useColorModeValue } from "@chakra-ui/react";
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-export default function ActionButtom({ action, iconName, color, path }) {
+export default function ActionButtom({
+  action,
+  iconName,
+  color,
+  path,
+  dataToSend,
+}) {
   const bgHover = useColorModeValue(
     { bg: "secondaryGray.400" },
     { bg: "whiteAlpha.50" }
@@ -16,7 +22,12 @@ export default function ActionButtom({ action, iconName, color, path }) {
   const iconColor = useColorModeValue("brand.500", "white");
 
   return (
-    <NavLink to={`/admin/${path}`}>
+    <NavLink
+      to={{
+        pathname: `/admin/${path}`,
+        state: dataToSend,
+      }}
+    >
       <Flex
         align="center"
         justifyContent="center"

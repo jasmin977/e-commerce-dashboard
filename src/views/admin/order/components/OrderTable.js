@@ -21,14 +21,12 @@ import {
 
 //custom icons
 import { FaEye } from "react-icons/fa";
-import { MdDelete } from "react-icons/md";
 import { FiDownload } from "react-icons/fi";
 
 // Custom components
 import Card from "components/card/Card";
 
-import { DeleteModal } from "components/actions";
-import { ActionButtom } from "components/actions";
+import { DeleteModal, ActionButtom } from "components/actions";
 
 export default function OderTable(props) {
   const { columnsData, tableData } = props;
@@ -120,12 +118,12 @@ export default function OderTable(props) {
                   } else if (cell.column.Header === "CLIENT") {
                     data = (
                       <Flex align="center">
-                        <Avatar
+                        {/*  <Avatar
                           src={cell.value[1]}
                           w="30px"
                           h="30px"
                           me="8px"
-                        />
+                        /> */}
                         <Text color={textColor} fontSize="sm" fontWeight="600">
                           {cell.value} {/**{cell.value[0]}*/}
                         </Text>
@@ -134,19 +132,13 @@ export default function OderTable(props) {
                   } else if (cell.column.Header === "PRODUCT") {
                     data = (
                       <Text color={textColor} fontSize="sm" fontWeight="700">
-                        ({cell.value}) item
+                        ({cell.value.length}) item
                       </Text>
                     );
                   } else if (cell.column.Header === "AMOUNT") {
                     data = (
                       <Text color={textColor} fontSize="sm" fontWeight="700">
                         {cell.value} DT
-                      </Text>
-                    );
-                  } else if (cell.column.Header === "PAYMENT") {
-                    data = (
-                      <Text color={textColor} fontSize="sm" fontWeight="700">
-                        {cell.value}
                       </Text>
                     );
                   } else if (cell.column.Header === "STATUS") {
@@ -157,7 +149,7 @@ export default function OderTable(props) {
                         statusColor = "rgb(165, 55, 253)";
                         bgStatusColor = "rgba(165, 55, 253,0.2)";
                         break;
-                      case "shipped":
+                      case "processing":
                         statusColor = "rgb(45, 85, 255)";
                         bgStatusColor = "rgba(45, 85, 255, 0.2)";
                         break;
@@ -165,7 +157,7 @@ export default function OderTable(props) {
                         statusColor = "rgb(255, 99, 71)";
                         bgStatusColor = "rgba(255, 99, 71,0.2)";
                         break;
-                      case "recieved":
+                      case "completed":
                         statusColor = "rgb(60, 179, 113)";
                         bgStatusColor = "rgba(60, 179, 113, 0.2)";
                         break;
@@ -192,16 +184,20 @@ export default function OderTable(props) {
                       </Flex>
                     );
                   } else if (cell.column.Header === "DATE TIME") {
+                    const dateObj = new Date(cell.value);
+                    const readableDate = dateObj.toLocaleString();
                     data = (
                       <Text color={textColor} fontSize="sm" fontWeight="700">
-                        {cell.value}
+                        {readableDate}
                       </Text>
                     );
                   } else if (cell.column.Header === "ACTION") {
-                    let id = cell.row.values.uid;
+                    let id = cell.row.values.id;
+                    let order = cell.row.values;
                     data = (
                       <Flex gap={1}>
                         <ActionButtom
+                          dataToSend={order}
                           iconName={FaEye}
                           path={`orders/${id}`}
                           color={"purple"}

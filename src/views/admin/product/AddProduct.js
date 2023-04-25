@@ -12,11 +12,13 @@ import {
   FormControl,
   FormLabel,
   Icon,
+  Spinner,
 } from "@chakra-ui/react";
 
 import { MdOutlineMoreHoriz } from "react-icons/md";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { GoBackButton } from "components/actions";
+import productApi from "api/productApi";
 
 const Menu = () => {
   return (
@@ -35,6 +37,41 @@ const Menu = () => {
 };
 
 const AddProduct = () => {
+  //state
+  const [categoryName, setCategoryName] = useState("");
+  //fetch data
+  const [categories, setCategories] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [choisenCategory, setChosenCategory] = useState("");
+
+  useEffect(async () => {
+    setIsLoading(true);
+    const [{ data: cats }, err] = await productApi.getCategories();
+    setCategories(cats);
+    setIsLoading(false);
+  }, []);
+
+  const onAddCategoryPressed = async () => {
+    if (categoryName !== "") {
+      const [{ data, status }, err] = await productApi.addCategory(
+        categoryName,
+        "desc"
+      );
+      if (err) return console.log(err);
+      console.log(data);
+      if (status == 200) {
+        setCategoryName("");
+        setCategories((v) => [...v, data]);
+      } else {
+        console.log(data.error);
+      }
+    }
+  };
+
+  const handleCategoryChoise = (event) => {
+    setChosenCategory(event.target.value);
+  };
+
   const borderColor = useColorModeValue("gray.200", "whiteAlpha.100");
   const [image, setImage] = useState(null);
 
@@ -46,6 +83,21 @@ const AddProduct = () => {
     event.preventDefault();
     // Here you can perform any action with the uploaded image
   };
+
+  //spinner
+  if (isLoading) {
+    return (
+      <Flex height={"xl"} align={"center"} justify={"center"}>
+        <Spinner
+          thickness="4px"
+          speed="0.65s"
+          emptyColor="gray.200"
+          color="brand.500"
+          size="xl"
+        />
+      </Flex>
+    );
+  }
   return (
     <Box pt={{ base: "80px", md: "50px", xl: "50px" }}>
       <GoBackButton />
@@ -95,10 +147,16 @@ const AddProduct = () => {
                       borderWidth={2}
                       borderColor={borderColor}
                       variant="filled"
+                      onChange={handleCategoryChoise}
                     >
-                      <option value="mans">mans</option>
-                      <option value="womans">womans</option>
-                      <option value="accessory">accessory</option>
+                      {categories.map((item, idx) => (
+                        <option
+                          value={`${item.name}`}
+                          key={`chosen_category_${item.name}`}
+                        >
+                          {item.name}
+                        </option>
+                      ))}
                     </Select>
                   </Box>
                   <Box flex="1">
@@ -199,6 +257,8 @@ const AddProduct = () => {
                 <FormControl id="add-category">
                   <FormLabel>Add Category</FormLabel>
                   <Input
+                    value={categoryName}
+                    onChange={(e) => setCategoryName(e.target.value)}
                     size="lg"
                     borderWidth={2}
                     borderColor={borderColor}
@@ -217,6 +277,7 @@ const AddProduct = () => {
                   height={"50px"}
                   py="20px"
                   mx={"10px"}
+                  onClick={onAddCategoryPressed}
                 >
                   Add
                 </Button>

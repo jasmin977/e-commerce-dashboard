@@ -7,7 +7,7 @@ import Information from "./Information";
 
 // Assets
 export default function GeneralInformation(props) {
-  const { ...rest } = props;
+  const { gender, address, number, ...rest } = props;
   // Chakra Color Mode
   const textColorPrimary = useColorModeValue("secondaryGray.900", "white");
   const textColorSecondary = "gray.400";
@@ -28,17 +28,13 @@ export default function GeneralInformation(props) {
       </Text>
 
       <SimpleGrid columns="3" gap="20px">
-        <Information
-          boxShadow={cardShadow}
-          title="Address Email"
-          value="email@gmail.com"
-        />
+        <Information boxShadow={cardShadow} title="Gender" value={gender} />
         <Information
           boxShadow={cardShadow}
           title="Phone Number"
-          value="51241715"
+          value={number}
         />
-        <Information boxShadow={cardShadow} title="Location" value="sousse" />
+        <Information boxShadow={cardShadow} title="Address" value={address} />
       </SimpleGrid>
     </Card>
   );

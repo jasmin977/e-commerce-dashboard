@@ -7,6 +7,7 @@ import {
   GridItem,
   Icon,
   SimpleGrid,
+  Spinner,
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
@@ -15,7 +16,7 @@ import {
 
 import MiniStatistics from "components/card/MiniStatistics";
 import IconBox from "components/icons/IconBox";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   MdBarChart,
   MdMoreHoriz,
@@ -25,21 +26,35 @@ import {
 
 import PieCard from "views/admin/default/components/PieCard";
 
-import TotalSpent from "views/admin/default/components/TotalSpent";
-
-import tableDataCheck from "views/admin/dataTables/variables/tableDataCheck.json";
 import {
   clientscolumnsDataCheck,
   productscolumnsDataCheck,
 } from "../dataTables/variables/columnsData";
 import ProductTable from "../product/components/ProductTable";
-import Filter from "../product/components/Filter";
 import { HiUsers } from "react-icons/hi";
 import { ImStarFull } from "react-icons/im";
 import clientsData from "../dataTables/variables/clientsData.json";
 import ClientsTable from "../Client/components/ClientsTable";
+import clientApi from "api/clientApi";
+import productApi from "api/productApi";
 
 export default function UserReports() {
+  //fetching data
+
+  const [users, setUsers] = useState([]);
+  const [products, setproducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  useEffect(async () => {
+    setIsLoading(true);
+    const [{ data, status }, err] = await clientApi.getUsers();
+    const [{ data: products }, errc] = await productApi.getProducts();
+    if (status == 200) {
+      setUsers(data.users.slice(0, 5));
+      setproducts(products.slice(0, 5));
+    }
+    setIsLoading(false);
+  }, []);
+
   // Chakra Color Mode
   // Chakra Color Mode
   const iconColor = useColorModeValue("brand.500", "white");
@@ -171,16 +186,90 @@ export default function UserReports() {
             bg="white"
             rounded={"2xl"}
           >
-            <Flex px="25px" justify="space-between" my="20px" align="center">
+            {
+              //spinner
+              isLoading ? (
+                <Flex height={"xl"} align={"center"} justify={"center"}>
+                  <Spinner
+                    thickness="4px"
+                    speed="0.65s"
+                    emptyColor="gray.200"
+                    color="brand.500"
+                    size="xl"
+                  />
+                </Flex>
+              ) : (
+                <>
+                  <Flex
+                    px="25px"
+                    justify="space-between"
+                    my="20px"
+                    align="center"
+                  >
+                    <Text
+                      color={textColor}
+                      fontSize="22px"
+                      fontWeight="700"
+                      lineHeight="100%"
+                    >
+                      Popular Clients
+                    </Text>
+
+                    <Button
+                      ms="auto"
+                      align="center"
+                      justifyContent="center"
+                      bg={bgButton}
+                      _hover={bgHover}
+                      _focus={bgFocus}
+                      _active={bgFocus}
+                      w="37px"
+                      h="37px"
+                      lineHeight="100%"
+                      borderRadius="10px"
+                    >
+                      <Icon
+                        as={MdMoreHoriz}
+                        color={iconColor}
+                        w="24px"
+                        h="24px"
+                      />
+                    </Button>
+                  </Flex>
+
+                  <ClientsTable
+                    columnsData={clientscolumnsDataCheck}
+                    tableData={users}
+                  />
+                </>
+              )
+            }
+          </Box>
+        </GridItem>
+
+        <GridItem>
+          <PieCard />
+        </GridItem>
+      </Grid>
+
+      {/** best selling products */}
+      <Box
+        pt={{ base: "20px", md: "20px", xl: "20px" }}
+        bg="white"
+        rounded={"2xl"}
+      >
+        {/* Main Fields */}
+        {!isLoading && (
+          <SimpleGrid columns={{ base: 1, md: 1 }}>
+            <Flex px="25px" justify="space-between" my="10px" align="center">
               <Text
                 color={textColor}
                 fontSize="22px"
                 fontWeight="700"
                 lineHeight="100%"
               >
-                Popular Clients
+                Best Selling Products
               </Text>
-
               <Button
                 ms="auto"
                 align="center"
@@ -198,57 +287,12 @@ export default function UserReports() {
               </Button>
             </Flex>
 
-            <ClientsTable
-              columnsData={clientscolumnsDataCheck}
-              tableData={clientsData}
+            <ProductTable
+              columnsData={productscolumnsDataCheck}
+              tableData={products}
             />
-          </Box>
-        </GridItem>
-
-        <GridItem>
-          <PieCard />
-        </GridItem>
-      </Grid>
-
-      {/** best selling products */}
-      <Box
-        pt={{ base: "20px", md: "20px", xl: "20px" }}
-        bg="white"
-        rounded={"2xl"}
-      >
-        {/* Main Fields */}
-        <SimpleGrid columns={{ base: 1, md: 1 }}>
-          <Flex px="25px" justify="space-between" my="10px" align="center">
-            <Text
-              color={textColor}
-              fontSize="22px"
-              fontWeight="700"
-              lineHeight="100%"
-            >
-              Best Selling Products
-            </Text>
-            <Button
-              ms="auto"
-              align="center"
-              justifyContent="center"
-              bg={bgButton}
-              _hover={bgHover}
-              _focus={bgFocus}
-              _active={bgFocus}
-              w="37px"
-              h="37px"
-              lineHeight="100%"
-              borderRadius="10px"
-            >
-              <Icon as={MdMoreHoriz} color={iconColor} w="24px" h="24px" />
-            </Button>
-          </Flex>
-
-          <ProductTable
-            columnsData={productscolumnsDataCheck}
-            tableData={tableDataCheck}
-          />
-        </SimpleGrid>
+          </SimpleGrid>
+        )}
       </Box>
     </Box>
   );

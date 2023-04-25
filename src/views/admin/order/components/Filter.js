@@ -2,16 +2,14 @@ import {
   Flex,
   FormControl,
   FormLabel,
-  Grid,
   Input,
   Select,
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
 import React from "react";
-import { inputStyles } from "theme/components/input";
 
-function Filter() {
+function Filter({ searchTerm, handleChange, handleStatusSearch }) {
   const textColor = useColorModeValue("secondaryGray.900", "white");
   const borderColor = useColorModeValue("gray.200", "whiteAlpha.100");
   return (
@@ -33,11 +31,11 @@ function Filter() {
         <Text me="10px" color={textColor} fontSize="sm" fontWeight="700">
           <FormLabel>STATUS BY</FormLabel>
         </Text>
-        <Select size="lg" variant="filled">
-          <option>Pending</option>
-          <option>Shipped</option>
-          <option>Recieved</option>
-          <option>Cancelled</option>
+        <Select size="lg" variant="filled" onChange={handleStatusSearch}>
+          <option value={"pending"}>Pending</option>
+          <option value={"processing"}>Processing</option>
+          <option value={"completed"}>Completed</option>
+          <option value={"cancelled"}>Cancelled</option>
         </Select>
       </FormControl>
       <FormControl>
@@ -55,7 +53,13 @@ function Filter() {
         <Text me="10px" color={textColor} fontSize="sm" fontWeight="700">
           <FormLabel>SEARCH BY</FormLabel>{" "}
         </Text>
-        <Input placeholder="id/name/email" size="lg" variant="filled" />
+        <Input
+          value={searchTerm}
+          onChange={handleChange}
+          placeholder="id/name/email"
+          size="lg"
+          variant="filled"
+        />
       </FormControl>
     </Flex>
   );

@@ -7,6 +7,7 @@ import {
   Icon,
   Flex,
   Button,
+  Spinner,
 } from "@chakra-ui/react";
 import { MdCheck, MdBlock, MdMoreHoriz, MdLocalShipping } from "react-icons/md";
 
@@ -14,15 +15,50 @@ import MiniStatistics from "components/card/MiniStatistics";
 import IconBox from "components/icons/IconBox";
 import { clientscolumnsDataCheck } from "../dataTables/variables/columnsData";
 
-import clientsData from "../dataTables/variables/clientsData.json";
+import { useEffect, useState } from "react";
 import Filter from "./components/Filter";
 
 import ClientsTable from "./components/ClientsTable";
+import clientApi from "api/clientApi";
 const ClientList = () => {
+  //state and api calls
+  const [users, setUsers] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const [searchResults, setSearchResults] = useState([]);
+  useEffect(async () => {
+    setIsLoading(true);
+    const [{ data }, err] = await clientApi.getUsers();
+    setSearchResults(data.users);
+    setUsers(data.users);
+    setIsLoading(false);
+  }, []);
+
+  //filter feature
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  useEffect(() => {
+    if (searchTerm === "") {
+      setSearchResults(users);
+    } else {
+      const results = users.filter(
+        (item) =>
+          item.id.toString().includes(searchTerm) ||
+          item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          item.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          item.phoneNumber.includes(searchTerm)
+      );
+      setSearchResults(results);
+    }
+  }, [searchTerm]);
+
   // Chakra Color Mode
   const textColor = useColorModeValue("secondaryGray.900", "white");
   const iconColor = useColorModeValue("brand.500", "white");
-
   const bgButton = useColorModeValue("secondaryGray.300", "whiteAlpha.100");
   const bgHover = useColorModeValue(
     { bg: "secondaryGray.400" },
@@ -34,6 +70,21 @@ const ClientList = () => {
   );
   const brandColor = useColorModeValue("brand.500", "white");
   const boxBg = useColorModeValue("secondaryGray.300", "whiteAlpha.100");
+
+  //spinner
+  if (isLoading) {
+    return (
+      <Flex height={"xl"} align={"center"} justify={"center"}>
+        <Spinner
+          thickness="4px"
+          speed="0.65s"
+          emptyColor="gray.200"
+          color="brand.500"
+          size="xl"
+        />
+      </Flex>
+    );
+  }
   return (
     <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>
       <Grid
@@ -117,11 +168,12 @@ const ClientList = () => {
               <Icon as={MdMoreHoriz} color={iconColor} w="24px" h="24px" />
             </Button>
           </Flex>
-          <Filter />
+          <Filter handleChange={handleChange} searchTerm={searchTerm} />
 
           <ClientsTable
             columnsData={clientscolumnsDataCheck}
-            tableData={clientsData}
+            //   tableData={users}
+            tableData={searchResults}
           />
         </SimpleGrid>
       </Box>

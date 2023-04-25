@@ -1,12 +1,34 @@
 import apiRequestHandler from "./apiRequestHandler";
 
-const BASE_URL = "/orders-service/1.0.0";
+const BASE_URL = "/product-service/1.0.0";
 
 export default {
-  getOrders: async () => {
+  getProducts: async () => {
     return apiRequestHandler({
-      url: BASE_URL + "/all",
+      url: BASE_URL + "/api/products",
       method: "get",
+      headers: {
+        authorization: `barear ${localStorage.getItem("token")}`,
+      },
+    });
+  },
+  getCategories: async () => {
+    return apiRequestHandler({
+      url: BASE_URL + "/api/categories",
+      method: "get",
+      headers: {
+        authorization: `barear ${localStorage.getItem("token")}`,
+      },
+    });
+  },
+  addCategory: async (name, desc) => {
+    return apiRequestHandler({
+      url: BASE_URL + "/api/categories",
+      method: "post",
+      data: {
+        name,
+        desc,
+      },
       headers: {
         authorization: `barear ${localStorage.getItem("token")}`,
       },

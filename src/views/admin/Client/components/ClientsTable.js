@@ -141,16 +141,33 @@ export default function ClientsTable(props) {
                   } else if (cell.column.Header === "PASSWORD") {
                     data = (
                       <Text color={textColor} fontSize="sm" fontWeight="700">
+                        {cell.value.slice(0, 8)}...
+                      </Text>
+                    );
+                  } else if (cell.column.Header === "GENDER") {
+                    data = (
+                      <Text color={textColor} fontSize="sm" fontWeight="700">
+                        {cell.value.slice(0, 6)}...
+                      </Text>
+                    );
+                  } else if (cell.column.Header === "ADDRESS") {
+                    data = (
+                      <Text color={textColor} fontSize="sm" fontWeight="700">
                         {cell.value.slice(0, 10)}...
                       </Text>
                     );
                   } else if (cell.column.Header === "PHONE") {
                     data = (
-                      <Text color={textColor} fontSize="sm" fontWeight="700">
-                        {cell.value}
+                      <Text
+                        width={100}
+                        color={textColor}
+                        fontSize="sm"
+                        fontWeight="700"
+                      >
+                        {cell.value.slice(0, 8)}...
                       </Text>
                     );
-                  } else if (cell.column.Header === "STATUS") {
+                  } /* else if (cell.column.Header === "STATUS") {
                     let statusColor;
                     let bgStatusColor;
                     switch (cell.value) {
@@ -189,17 +206,13 @@ export default function ClientsTable(props) {
                         </Text>
                       </Flex>
                     );
-                  } else if (cell.column.Header === "CREATED") {
-                    data = (
-                      <Text color={textColor} fontSize="sm" fontWeight="700">
-                        {cell.value}
-                      </Text>
-                    );
-                  } else if (cell.column.Header === "ACTION") {
-                    let id = cell.row.values.uid;
+                  } */ else if (cell.column.Header === "ACTION") {
+                    let id = cell.row.values.id;
+                    let user = cell.row.values;
                     data = (
                       <Flex gap={1}>
                         <ActionButtom
+                          dataToSend={user}
                           path={`clients/${id}`}
                           iconName={FaEye}
                           color={"purple"}
