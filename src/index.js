@@ -4,16 +4,12 @@ import "assets/css/App.css";
 import { HashRouter, Route, Switch, Redirect } from "react-router-dom";
 import AuthLayout from "layouts/auth";
 import AdminLayout from "layouts/admin";
+import Products from "layouts/products";
 import RTLLayout from "layouts/rtl";
 import { ChakraProvider } from "@chakra-ui/react";
 import theme from "theme/theme";
 import { ThemeEditorProvider } from "@hypertheme-editor/chakra-ui";
-
-import ProductList from "views/admin/product/ProductList";
-
-import ProductView from "views/admin/product/ViewProduct";
-import AddProduct from "views/admin/product/AddProduct";
-import Products from "layouts/products";
+import "./style.css";
 
 ReactDOM.render(
   <ChakraProvider theme={theme}>

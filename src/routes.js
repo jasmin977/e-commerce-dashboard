@@ -6,6 +6,7 @@ import {
   MdSpaceDashboard,
   MdLogout,
   MdLayers,
+  MdChatBubble,
   MdOutlineShoppingCart,
 } from "react-icons/md";
 
@@ -17,6 +18,7 @@ import SignInCentered from "views/auth/signIn";
 import Products from "layouts/products";
 import Orders from "layouts/orders";
 import Clients from "layouts/clients";
+import Chat from "layouts/chat";
 
 const routes = [
   {
@@ -55,6 +57,14 @@ const routes = [
       />
     ),
     component: Orders,
+  },
+
+  {
+    name: "Chat",
+    layout: "/admin",
+    path: "/chat",
+    icon: <Icon as={MdChatBubble} width="20px" height="20px" color="inherit" />,
+    component: Chat,
   },
 
   {
